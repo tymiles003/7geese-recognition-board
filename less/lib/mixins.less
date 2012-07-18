@@ -9,13 +9,8 @@
     transition: @options;
 }
 
-.transiton-2(@options1, @options2) {
-    -webkit-transition-property: @options1, @options2;
-    -moz-transition-property: @options1, @options2;
-    -ms-transition-property: @options1, @options2;
-    -o-transition-property: @options1, @options2;
-    transition-property: @options1, @options2;
-}
+// For a single property that needs animating (or, this is perfect for all
+// properties, but you might as well use the .transition mixin.)
 
 .transition-property(@options) {
     -webkit-transition-property: @options;
@@ -32,6 +27,16 @@
     -o-transition-duration: @options;
     transition-duration: @options;
 }
+
+.transition-timing-function(@options1) {
+    -webkit-transition-timing-function: @options1;
+    -moz-transition-timing-function: @options1;
+    -ms-transition-timing-function: @options1;
+    -o-transition-timing-function: @options1;
+    transition-timing-function: @options1;
+}
+
+// For two properties that need animating.
 
 .transition-property-2(@options1, @options2) {
     -webkit-transition-property: @options1, @options2;
@@ -55,6 +60,58 @@
     -ms-transition-timing-function: @options1, @options2;
     -o-transition-timing-function: @options1, @options2;
     transition-timing-function: @options1, @options2;
+}
+
+// For three properties that need animating.
+
+.transition-property-3(@options1, @options2, @options3) {
+    -webkit-transition-property: @options1, @options2, @options3;
+    -moz-transition-property: @options1, @options2, @options3;
+    -ms-transition-property: @options1, @options2, @options3;
+    -o-transition-property: @options1, @options2, @options3;
+    transition-property: @options1, @options2, @options3;
+}
+
+.transition-duration-3(@options1, @options2, @options3) {
+    -webkit-transition-duration: @options1, @options2, @options3;
+    -moz-transition-duration: @options1, @options2, @options3;
+    -ms-transition-duration: @options1, @options2, @options3;
+    -o-transition-duration: @options1, @options2, @options3;
+    transition-duration: @options1, @options2, @options3;
+}
+
+.transition-timing-function-3(@options1, @options2, @options3) {
+    -webkit-transition-timing-function: @options1, @options2, @options3;
+    -moz-transition-timing-function: @options1, @options2, @options3;
+    -ms-transition-timing-function: @options1, @options2, @options3;
+    -o-transition-timing-function: @options1, @options2, @options3;
+    transition-timing-function: @options1, @options2, @options3;
+}
+
+// For four properties.
+
+.transition-property-4(@options1, @options2, @options3, @options4) {
+    -webkit-transition-property: @options1, @options2, @options3, @options4;
+    -moz-transition-property: @options1, @options2, @options3, @options4;
+    -ms-transition-property: @options1, @options2, @options3, @options4;
+    -o-transition-property: @options1, @options2, @options3, @options4;
+    transition-property: @options1, @options2, @options3, @options4;
+}
+
+.transition-duration-4(@options1, @options2, @options3, @options4) {
+    -webkit-transition-duration: @options1, @options2, @options3, @options4;
+    -moz-transition-duration: @options1, @options2, @options3, @options4;
+    -ms-transition-duration: @options1, @options2, @options3, @options4;
+    -o-transition-duration: @options1, @options2, @options3, @options4;
+    transition-duration: @options1, @options2, @options3, @options4;
+}
+
+.transition-timing-function-4(@options1, @options2, @options3, @options4) {
+    -webkit-transition-timing-function: @options1, @options2, @options3, @options4;
+    -moz-transition-timing-function: @options1, @options2, @options3, @options4;
+    -ms-transition-timing-function: @options1, @options2, @options3, @options4;
+    -o-transition-timing-function: @options1, @options2, @options3, @options4;
+    transition-timing-function: @options1, @options2, @options3, @options4;
 }
 
 .transform(@options) {
