@@ -137,17 +137,17 @@ doBuild = (cb) ->
                 callback null
 
         (callback) ->
-            jam = spawnChild 'jam', [ 'install', 'jam.json' ]
-            jam.on 'exit', ->
-                callback null
-
-        (callback) ->
             writeProductionSettings ->
                 callback null
 
         (callback) ->
-            jam = spawnChild 'jam', [ 'compile', '-i', 'app/main', '-e',  'cs', '-e', 'coffee-script', '-e', 'less', '-e', 'lessc', '-e', 'text', '-a', '-o', 'jam/require.js' ]
-            jam.on 'exit', ->
+            cp = child_process.spawn 'cp', [ 'local/require.js', 'require.js' ]
+            cp.on 'exit', ->
+                callback null
+
+        (callback) ->
+            rjs = spawnChild 'node', [ 'r-alt.js', '-o', 'baseUrl=.', 'paths.requireLib=require', 'name=app/main', 'include=requireLib', 'out=require.js' ]
+            rjs.on 'exit', ->
                 callback null
 
         (callback) ->
@@ -227,18 +227,6 @@ task 'uglify', 'Take all files inside the .js directory and minify them.', ->
 
         fs.writeFileSync distPath, finalCode, 'utf8'
 
-task 'deps:install', 'Install all dependencies for the client-side.', ->
-    async.waterfall [
-        (callback) ->
-            jam = spawnChild 'jam', ['install', 'jam.json']
-    ]
-
-task 'deps:upgrade', 'Upgrade all dependencies for the client-side.', ->
-    async.waterfall [
-        (callback) ->
-            jam = spawnChild 'jam', ['upgrade']
-    ]
-
 task 'clean', 'Clear out all the unnecessary stuff.', ->
     cleanBuild()
 
@@ -256,12 +244,17 @@ task 'clean:all', 'Clear out all the unnecessary stuff, inscluding the node_modu
 task 'run', 'Run a server.', ->
     async.waterfall [
         (callback) ->
-            jam = spawnChild 'jam', [ 'install', 'jam.json' ]
-            jam.on 'exit', ->
+            writeDevelopmentSettings ->
                 callback null
 
         (callback) ->
-            writeDevelopmentSettings ->
+            rm = child_process.spawn 'rm', [ '-f', './require.js' ]
+            rm.on 'exit', ->
+                callback null
+
+        (callback) ->
+            cp = child_process.spawn 'cp', [ './local/require.js', './require.js' ]
+            cp.on 'exit', ->
                 callback null
 
         (callback) ->

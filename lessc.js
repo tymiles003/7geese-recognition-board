@@ -4,12 +4,13 @@ define('lessc', [], function () {
     var buildMap = {},
         // TODO: Find a better way to determine if the current environment is
         //       Node.js or not.
-        isNodejs = typeof exports != 'undefined';
+        isNodejs = typeof process !== 'undefined';
 
     /**
      * Convenience function for compiling LESS code.
      */
     var compileLess = function (lessSrc, parentRequire, callback) {
+
         if (!isNodejs) {
             parentRequire(['less'], function (less) {
                 var lessParser = new less.Parser();
@@ -19,7 +20,7 @@ define('lessc', [], function () {
                 });
             });
         } else {
-            var less = module.require('less');
+            var less = globalLess;
             var lessParser = new less.Parser();
 
             lessParser.parse(lessSrc, function (e, css) {
@@ -45,10 +46,14 @@ define('lessc', [], function () {
     };
 
     var loadFile = function (name, parentRequire, callback) {
+        //console.log(isNodejs);
+        console.log(name);
         if (isNodejs) {
+            //console.log("Here.");
             var text = fs.readFileSync(name, 'utf-8');
             callback(text);
         } else {
+            console.log("Huh?")
             parentRequire(['text!' + name], function (text) {
                 callback(text);
             });
@@ -95,7 +100,7 @@ define('lessc', [], function () {
             var newName;
 
             if (!isNodejs) {
-                newName = "../" + name;
+                newName = name;
             } else {
                 var filename = name.substr(name.indexOf('/') + 1, name.length);
                 var dirname = name.substr(0, name.indexOf('/'));
