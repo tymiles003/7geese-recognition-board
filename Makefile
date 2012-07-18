@@ -6,14 +6,14 @@ dist:
 	@cp -r bin dist/bin
 
 	@mkdir dist/jam
-	@cp jam/require.js dist/jam/require.js
+	@cp require.js dist/require.js
 
 	@echo "Created a distributable version."
 
 clean:
-	@rm -rf jam
+	@rm -f require.js
 	@rm -rf bin
 	@rm -rf dist
 	@rm -rf app/bin
 	
-	@echo "The jam, css/bin, and dist folders have been removed."
+	@echo "All build files removed."
