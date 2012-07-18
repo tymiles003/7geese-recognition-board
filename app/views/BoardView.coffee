@@ -16,19 +16,33 @@ define [
 
     return class BoardView extends Backbone.View
         className: 'board-view'
+        _lastWidth: null
 
         initialize: ->
+            $window = $ window
+
             @recognitionsCollection = new RecognitionsCollection
             @recognitionsCollection.fetch success: =>
                 @render()
                 @recognitionsCollection.bind "add", @_prependNewRecognition
+
+            _lastWidth = $window.width()
 
             setInterval =>
                 @updateBoard()
             , 30000
 
             $(window).resize =>
+                @_handleAppWidthChange()
                 @centerBoard()
+                @_lastWidth = $window.width()
+
+        _handleAppWidthChange: ->
+            $window = $ window
+
+            if @_lastWidth > 980 and $window.width() <= 980 or
+            @_lastWidth <= 980 and $window.width() > 980
+                @$el.masonry 'reload'
 
         centerBoard: ->
             $window = $ window
@@ -38,6 +52,8 @@ define [
             recognitionListWidth = ((windowWidth / (recognitionViewWidth + 10))|0) * recognitionViewWidth
 
             @$el.css "width": recognitionListWidth
+
+            
 
         updateBoard: =>
             newRecognitions = new RecognitionsCollection
