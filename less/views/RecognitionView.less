@@ -44,7 +44,10 @@
         float: left;
         margin: 10px;
 
-        .transition(all 300ms ease-in-out);
+        // We only want the `top` and `left` property to animate.
+        .transition-property-2(top, left);
+        .transition-duration-2(300ms, 300ms);
+        .transition-timing-function-2(ease-in-out, ease-in-out);
 
         .filler {
             border-radius: 6px;
