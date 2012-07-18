@@ -40,8 +40,8 @@ define [
         _handleAppWidthChange: ->
             $window = $ window
 
-            if @_lastWidth > 980 and $window.width() <= 980 or
-            @_lastWidth <= 980 and $window.width() > 980
+            if @_lastWidth > 1094 and $window.width() <= 1094 or
+            @_lastWidth <= 1094 and $window.width() > 1094
                 @$el.masonry 'reload'
 
         centerBoard: ->
