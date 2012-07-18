@@ -46,14 +46,10 @@ define('lessc', [], function () {
     };
 
     var loadFile = function (name, parentRequire, callback) {
-        //console.log(isNodejs);
-        console.log(name);
         if (isNodejs) {
-            //console.log("Here.");
             var text = fs.readFileSync(name, 'utf-8');
             callback(text);
         } else {
-            console.log("Huh?")
             parentRequire(['text!' + name], function (text) {
                 callback(text);
             });

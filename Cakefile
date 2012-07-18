@@ -145,8 +145,27 @@ doBuild = (cb) ->
             cp.on 'exit', ->
                 callback null
 
+                ###
+                'baseUrl=.',
+                'paths.requireLib=require',
+                'excludeShallow=cs',
+                'excludeShallow=coffee-script',
+                'excludeShallow=less',
+                'excludeShallow=text',
+                'excludeShallow=lessc',
+                'name=app/main',
+                'include=requireLib',
+                'out=require.js'
+                ###
+                
         (callback) ->
-            rjs = spawnChild 'node', [ 'r-alt.js', '-o', 'baseUrl=.', 'paths.requireLib=require', 'name=app/main', 'include=requireLib', 'out=require.js' ]
+            rjs = spawnChild 'node', [ 
+                'r-alt.js'
+                '-o'
+
+                "app.build.js"
+            ]
+
             rjs.on 'exit', ->
                 callback null
 
