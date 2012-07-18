@@ -45,10 +45,11 @@
         margin: 10px;
 
         // We only want the `top` and `left` property to animate.
-        .transition-property-2(top, left);
-        .transition-duration-2(300ms, 300ms);
-        .transition-timing-function-2(ease-in-out, ease-in-out);
 
+        .transition-property-3(top, left, background-color);
+        .transition-duration-3(@board_transition_time, @board_transition_time, 100ms);
+        .transition-timing-function-3(ease-in-out, ease-in-out, ease-in-out);
+        
         .filler {
             border-radius: 6px;
             background-color: white;
@@ -58,8 +59,6 @@
     }
 
     &.animate {
-        .transition(all 300ms ease-in-out);
-
         .shadow-box {
             content: "";
             .box-shadow(0 0 0 rgba(0, 0, 0, 0.25));
@@ -68,13 +67,16 @@
             left: 10px;
             height: 100px;
             border-radius: @recognition_radius;
-            .transition(all 300ms ease-in-out);
             z-index: -101;
         }
     }
 
     &.animate:hover {
         .transform(translate(0, -@animation_distance));
+
+        .inner {
+            background-color: @7g_border_color_hover;
+        }
 
         .shadow-box {
             .transform(translate(0, 3));
