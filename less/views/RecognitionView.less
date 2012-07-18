@@ -35,6 +35,15 @@
 
     word-wrap: break-word;
 
+    -webkit-transition-property: -webkit-transform, left, top;
+    -moz-transition-property: -moz-transform, left, top;
+    -ms-transition-property: -ms-transform, left, top;
+    -o-transition-property: -o-transform, left, top;
+    //transition-property: --transform, left, top;
+
+    .transition-duration-3(100ms, @board_transition_time, @board_transition_time);
+    .transition-timing-function-3(ease-in-out, ease-in-out, ease-in-out);
+
     .inner {
         background-color: @7g_border_color;
         padding: 6px;
@@ -44,17 +53,12 @@
         float: left;
         margin: 10px;
 
-        // We only want the `top` and `left` property to animate.
-
-        .transition-property-3(top, left, background-color);
-        .transition-duration-3(@board_transition_time, @board_transition_time, 100ms);
-        .transition-timing-function-3(ease-in-out, ease-in-out, ease-in-out);
+        .transition(background-color 100ms ease-in-out);
         
         .filler {
             border-radius: 6px;
             background-color: white;
             border: 1px solid #bad1e0;
-            .transition(all @board_transition_time ease-in-out);
         } 
     }
 
@@ -68,6 +72,7 @@
             height: 100px;
             border-radius: @recognition_radius;
             z-index: -101;
+            .transition(all 100ms ease-in-out)
         }
     }
 
