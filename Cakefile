@@ -144,19 +144,6 @@ doBuild = (cb) ->
             cp = child_process.spawn 'cp', [ 'local/require.js', 'require.js' ]
             cp.on 'exit', ->
                 callback null
-
-                ###
-                'baseUrl=.',
-                'paths.requireLib=require',
-                'excludeShallow=cs',
-                'excludeShallow=coffee-script',
-                'excludeShallow=less',
-                'excludeShallow=text',
-                'excludeShallow=lessc',
-                'name=app/main',
-                'include=requireLib',
-                'out=require.js'
-                ###
                 
         (callback) ->
             rjs = spawnChild 'node', [ 
