@@ -6,6 +6,7 @@ path          = require 'path'
 mkdirp        = require 'mkdirp'
 watch         = require 'watch'
 beautify      = require './cake-modules/beautify.js'
+uglify        = require 'uglify-js'
 
 outputStdout = (data) ->
     console.log data.toString('utf8').trim()
@@ -187,7 +188,7 @@ writeDevelopmentSettings = (cb) ->
             fs.writeFileSync "#{settingsjsDir}/settings.js", outputJs, 'utf8'
             cb()
 
-runDevelopment = () ->
+runDevelopment = ->
     callbacks = []
 
     fs.readFile "#{__dirname}/local_settings.json", 'utf8', (err, localSettings) ->
@@ -208,6 +209,23 @@ task 'build-run', 'Build all script files, compile the static LESS, and run the 
 task 'dist', 'Prepare the project for distribution.', ->
     doBuild ->
         make = spawnChild 'make', ['dist']
+
+task 'uglify', 'Take all files inside the .js directory and minify them.', ->
+    parser    = uglify.parser
+    processor = uglify.uglify
+
+    finder    = findit.find "#{__dirname}/js"
+
+    finder.on 'file', (file, stat) ->
+        distPath  = "#{path.dirname path.dirname file}/dist/js/#{path.basename file}"
+        
+        js        = fs.readFileSync file, 'utf8'
+        ast       = parser.parse js
+        ast       = processor.ast_mangle ast
+        ast       = processor.ast_squeeze ast
+        finalCode = processor.gen_code ast
+
+        fs.writeFileSync distPath, finalCode, 'utf8'
 
 task 'deps:install', 'Install all dependencies for the client-side.', ->
     async.waterfall [

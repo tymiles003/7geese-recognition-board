@@ -1,7 +1,8 @@
 dist:
 	@mkdir dist
 	@cp index.html dist/index.html
-	@cp -r js dist/js
+	mkdir dist/js
+	@cake uglify
 	@cp -r bin dist/bin
 
 	@mkdir dist/jam
