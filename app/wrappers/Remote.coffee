@@ -1,6 +1,6 @@
 define [
     'app/bin/settings'
-    'app/jquery/jquery.jsonp.js'
+    'app/lib/jquery/jquery.jsonp.js'
 ], ->
     settings = require 'app/bin/settings'
 
