@@ -50,7 +50,8 @@ define('lessc', [], function () {
             var text = fs.readFileSync(name, 'utf-8');
             callback(text);
         } else {
-            parentRequire(['text!' + name], function (text) {
+            console.log(name);
+            parentRequire(['text!../../' + name], function (text) {
                 callback(text);
             });
         }

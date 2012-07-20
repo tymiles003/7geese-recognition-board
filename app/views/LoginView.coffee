@@ -2,8 +2,8 @@ define [
     'lessc!less/views/LoginView.less'
     'text!templates/login.html'
 
-    'app/jquery/jquery.serializeobject.js'
-    'app/jquery/jquery.transit.min.js'
+    'app/lib/jquery/jquery.serializeobject.js'
+    'app/lib/jquery/jquery.transit.min.js'
 
     'cs!app/statics'
     'cs!app/wrappers/Remote'
