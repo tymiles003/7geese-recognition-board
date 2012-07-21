@@ -4,7 +4,7 @@ define [
 
     'lessc!less/views/BoardView.less'
 
-    'app/jquery/jquery.masonry.min.js'
+    'app/lib/jquery/jquery.masonry.min.js'
     'cs!app/views/RecognitionView'
     'cs!app/collections/RecognitionsCollection'
 ], ->

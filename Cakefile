@@ -147,7 +147,7 @@ doBuild = (cb) ->
                 
         (callback) ->
             rjs = spawnChild 'node', [ 
-                'r-alt.js'
+                'local/r-alt.js'
                 '-o'
 
                 "app.build.js"
