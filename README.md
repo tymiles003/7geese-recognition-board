@@ -35,7 +35,7 @@ Another interesting thing about this project is that we ensured *everything* is 
 
 How?
 
-RequireJS supports plugins that let you load more than just JavaScript, but as well as anything stored in plain text, such as HTML templates, styles, etc. (This is how we managed to write code in CoffeeScript.)
+RequireJS supports plugins that let you load more than just JavaScript, but as well as anything stored in plain text, such as HTML templates, styles, etc. (That's how we managed to write code in CoffeeScript.)
 
 #### Loading Modules
 
@@ -70,7 +70,7 @@ OK, some more examples with plugins, but this time, with LESS.
     ], ->
         # No need to use `require` here.
 
-And the style will be loaded up and compiled. Pretty neat, non?
+And the style will be loaded up, compiled, and applied. Pretty neat, non?
 
 Same thing for templates--which I'm sure you'd use a lot for Backbone views.
 
@@ -78,6 +78,30 @@ Same thing for templates--which I'm sure you'd use a lot for Backbone views.
         'text!path/to/template/code/view.html'
     ], ->
         template = require 'text!path/to/template/code/view.html'
+
+### How the Code is Organized
+
+You'd find all logic code inside the `app` folder, as well as third party libraries inside `app/lib`. All styles are stored in the `less` folder. And all templates are stored inside `templates`.
+
+Since the project follows the MV* methodology, we separated our code into views, models, and collection types.
+
+All views that need styles, have their own respective LESS files. And also, all views that need templates have their own respective template files as well.
+
+It's highly unlikely that two views will ever share styles, but that's not a possibility that we rule out, though. Just use your best judgement.
+
+And the plugins that do all the cool things are stored inside the `plugins` folder.
+
+### But What About Module Names?
+
+You've noticed how the jQuery library is loaded up with the string `jquery`, instead of `app/lib/jquery`. We use settings. And these settings are stored in two files (and you'd have to edit both, by the ways).
+
+The first file that you'd load up is `app/main.js`, and the second would be `app.build.js`. To add a library `contozo` to the list of modules that you load up elegantly, then you'd simply add `contozo` to the `paths` list, like so:
+
+    {
+        paths: {
+            contozo: "app/lib/contozo"
+        }
+    }
 
 ### Testing on Another Server
 
