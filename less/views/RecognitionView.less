@@ -1,36 +1,6 @@
 @import "less/lib/variables.less";
 @import "less/lib/mixins.less";
 
-@media screen and (max-width: 1094px) {
-    .recognition-view {
-        .inner {
-            width: 275px;
-            margin: 10px;
-        }
-
-        &.animate {
-            .shadow-box {
-                width: 287px;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 1095px) {
-    .recognition-view {
-        .inner {
-            width: 329px;
-            margin: 10px;
-        }
-
-        &.animate {
-            .shadow-box {
-                width: 341px;
-            }
-        }
-    }
-}
-
 .recognition-view {
     @recognition_radius: 10px;
     @animation_distance: 5px;
@@ -47,6 +17,8 @@
     .transition-timing-function-3(ease-in-out, ease-in-out, ease-in-out);
 
     .inner {
+        margin: 10px;
+        width: 275px;
         background-color: @7g_border_color;
         padding: 6px;
         border-top: 1px solid white;
@@ -89,6 +61,34 @@
             .transform(scaleX(0.95));
             .box-shadow(0 @animation_distance - 1px @animation_distance * 2 rgba(0, 0, 0, 0.1));
             z-index: -101;
+        }
+    }
+}
+
+@media screen and (max-width: 1094px) {
+    .recognition-view {
+        .inner {
+            width: 275px;
+        }
+
+        &.animate {
+            .shadow-box {
+                width: 287px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1095px) {
+    .recognition-view {
+        .inner {
+            width: 329px;
+        }
+
+        &.animate {
+            .shadow-box {
+                width: 341px;
+            }
         }
     }
 }
