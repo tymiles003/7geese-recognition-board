@@ -44,5 +44,3 @@ define [
 
             @commentsView.render()
             @$filler.append @commentsView.el
-
-            @$el.find('.badge-view').click @recognitionClicked

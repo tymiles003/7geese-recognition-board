@@ -22,5 +22,5 @@ define [
 
         render: =>
             data = @model.toJSON()
-            html =  template data
+            html = template data
             @$el.html html
