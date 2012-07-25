@@ -3,7 +3,7 @@
 
 @recognition_width: 329px;
 @recognition_width_narrow: @recognition_width - 54px;
-@recognition_shadow_width_difference: 12px;
+//@recognition_shadow_width_difference: 12px;
 
 .recognition-view {
     @recognition_radius: 10px;
@@ -39,6 +39,7 @@
         } 
     }
 
+    /*
     &.animate {
         .shadow-box {
             content: "";
@@ -52,20 +53,23 @@
             .transition(all 100ms ease-in-out)
         }
     }
+    */
 
     &.animate:hover {
-        .transform(translate(0, -@animation_distance));
+        //.transform(translate(0, -@animation_distance));
 
         .inner {
             background-color: @7g_border_color_hover;
         }
 
+        /*
         .shadow-box {
             .transform(translate(0, 3));
             .transform(scaleX(0.95));
             .box-shadow(0 @animation_distance - 1px @animation_distance * 2 rgba(0, 0, 0, 0.1));
             z-index: -101;
         }
+        */
     }
 }
 
@@ -75,11 +79,13 @@
             width: @recognition_width_narrow;
         }
 
+        /*
         &.animate {
             .shadow-box {
                 width: @recognition_width_narrow + @recognition_shadow_width_difference;
             }
         }
+        */
     }
 }
 
@@ -89,10 +95,12 @@
             width: @recognition_width;
         }
 
+        /*
         &.animate {
             .shadow-box {
                 width: @recognition_width + @recognition_shadow_width_difference;
             }
         }
+        */
     }
 }
