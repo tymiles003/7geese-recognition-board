@@ -21,7 +21,7 @@ define [
             dataType: 'jsonp'
             data:
                 verb: 'badge_awarded'
-                limit: 20
+                limit: 50
 
         fetch: (options={}) =>
             mergedOptions = _.clone @defaultGetParams
