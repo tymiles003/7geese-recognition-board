@@ -1,6 +1,10 @@
 @import "less/lib/variables.less";
 @import "less/lib/mixins.less";
 
+@recognition_width: 329px;
+@recognition_width_narrow: @recognition_width - 54px;
+@recognition_shadow_width_difference: 12px;
+
 .recognition-view {
     @recognition_radius: 10px;
     @animation_distance: 5px;
@@ -18,7 +22,7 @@
 
     .inner {
         margin: 10px;
-        width: 275px;
+        width: @recognition_width_narrow;
         background-color: @7g_border_color;
         padding: 6px;
         border-top: 1px solid white;
@@ -68,12 +72,12 @@
 @media screen and (max-width: 1094px) {
     .recognition-view {
         .inner {
-            width: 275px;
+            width: @recognition_width_narrow;
         }
 
         &.animate {
             .shadow-box {
-                width: 287px;
+                width: @recognition_width_narrow + @recognition_shadow_width_difference;
             }
         }
     }
@@ -82,12 +86,12 @@
 @media screen and (min-width: 1095px) {
     .recognition-view {
         .inner {
-            width: 329px;
+            width: @recognition_width;
         }
 
         &.animate {
             .shadow-box {
-                width: 341px;
+                width: @recognition_width + @recognition_shadow_width_difference;
             }
         }
     }
