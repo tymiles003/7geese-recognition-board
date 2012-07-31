@@ -13,7 +13,7 @@
         <div class="message">
 
           <strong>
-            <a href="<%= value.creator.url %>">
+            <a href="<%= value.creator.url %>" target="_parent">
               <%= value.creator.user.first_name %>
               <%= value.creator.user.last_name %>
             </a>
@@ -31,5 +31,5 @@
       <div class="clear"></div>
 
     </div>
-  <% }) %>
+  <% }); %>
 </div>
