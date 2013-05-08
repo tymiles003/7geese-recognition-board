@@ -1,35 +1,9 @@
 @import "less/lib/variables.less";
 @import "less/lib/mixins.less";
 
-@media screen and (max-width: 1094px) {
-    .recognition-view {
-        .inner {
-            width: 275px;
-            margin: 10px;
-        }
-
-        &.animate {
-            .shadow-box {
-                width: 287px;
-            }
-        }
-    }
-}
-
-@media screen and (min-width: 1095px) {
-    .recognition-view {
-        .inner {
-            width: 329px;
-            margin: 10px;
-        }
-
-        &.animate {
-            .shadow-box {
-                width: 341px;
-            }
-        }
-    }
-}
+@recognition_width: 329px;
+@recognition_width_narrow: @recognition_width - 54px;
+//@recognition_shadow_width_difference: 12px;
 
 .recognition-view {
     @recognition_radius: 10px;
@@ -47,6 +21,8 @@
     .transition-timing-function-3(ease-in-out, ease-in-out, ease-in-out);
 
     .inner {
+        margin: 10px;
+        width: @recognition_width_narrow;
         background-color: @7g_border_color;
         padding: 6px;
         border-top: 1px solid white;
@@ -63,6 +39,7 @@
         } 
     }
 
+    /*
     &.animate {
         .shadow-box {
             content: "";
@@ -76,19 +53,54 @@
             .transition(all 100ms ease-in-out)
         }
     }
+    */
 
     &.animate:hover {
-        .transform(translate(0, -@animation_distance));
+        //.transform(translate(0, -@animation_distance));
 
         .inner {
             background-color: @7g_border_color_hover;
         }
 
+        /*
         .shadow-box {
             .transform(translate(0, 3));
             .transform(scaleX(0.95));
             .box-shadow(0 @animation_distance - 1px @animation_distance * 2 rgba(0, 0, 0, 0.1));
             z-index: -101;
         }
+        */
+    }
+}
+
+@media screen and (max-width: 1094px) {
+    .recognition-view {
+        .inner {
+            width: @recognition_width_narrow;
+        }
+
+        /*
+        &.animate {
+            .shadow-box {
+                width: @recognition_width_narrow + @recognition_shadow_width_difference;
+            }
+        }
+        */
+    }
+}
+
+@media screen and (min-width: 1095px) {
+    .recognition-view {
+        .inner {
+            width: @recognition_width;
+        }
+
+        /*
+        &.animate {
+            .shadow-box {
+                width: @recognition_width + @recognition_shadow_width_difference;
+            }
+        }
+        */
     }
 }
