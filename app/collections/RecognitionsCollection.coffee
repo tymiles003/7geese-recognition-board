@@ -20,7 +20,6 @@ define [
         defaultGetParams:
             dataType: 'jsonp'
             data:
-                verb: 'badge_awarded'
                 limit: 50
 
         fetch: (options={}) =>
@@ -29,7 +28,7 @@ define [
             super mergedOptions
 
         url: =>
-            url = "#{settings.hostname}/api/v1/stream/"
+            url = "#{settings.hostname}/api/v1/feeds/recognition/"
             if Backbone.Tastypie.apiKey and Backbone.Tastypie.apiKey.username.length and Backbone.Tastypie.apiKey.key.length
                 creds = {username: Backbone.Tastypie.apiKey.username, api_key: Backbone.Tastypie.apiKey.key}
                 url = "#{url}?#{$.param creds}"

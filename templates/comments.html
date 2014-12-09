@@ -4,8 +4,8 @@
 
       <div class="profile-pic">
         <img
-          alt="<%= value.creator.user.first_name %> <%= value.creator.user.last_name %>"
-          src="<%= value.creator.profile_img %>">
+          alt="<%= value.actor.displayName %>"
+          src="<%= value.actor.image.url %>">
       </div>
 
       <div class="body">
@@ -13,17 +13,15 @@
         <div class="message">
 
           <strong>
-            <a href="<%= value.creator.url %>" target="_parent">
-              <%= value.creator.user.first_name %>
-              <%= value.creator.user.last_name %>
+            <a href="<%= value.actor.url %>" target="_parent">
+              <%= value.actor.displayName %>
             </a>
           </strong>
-
-          <%= value.message %>
+          <%= value.object.object.content %>
         </div>
 
         <div class="time">
-          <%= moment(value.timestamp).format('LLL') %>
+          <%= moment(value.published).format('LLL') %>
         </div>
 
       </div>
