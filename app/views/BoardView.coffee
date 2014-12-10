@@ -18,12 +18,12 @@ define [
         className: 'board-view'
         _lastWidth: null
 
-        initialize: ->
+        initialize: (options) ->
             $window = $ window
 
             @recognitionsCollection = new RecognitionsCollection
             @recognitionsCollection.fetch 
-                data: @options.filters
+                data: options.filters
                 success: =>
                     @render()
                     @recognitionsCollection.bind "add", @_prependNewRecognition

@@ -84,7 +84,9 @@ define [
 
             return
 
-        renderRecognitionBoard: =>
+        renderRecognitionBoard: (filters=null)=>
+            if not filters?
+                filters = @getFilters()
             @currentView?.remove()
-            @currentView = new BoardView filters: @getFilters()
+            @currentView = new BoardView filters: filters
             @render()
