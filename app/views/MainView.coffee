@@ -19,7 +19,7 @@ define [
 
     return class MainView extends Backbone.View
         remote: new Remote
-
+        validFilterParams: ['team', 'user', 'badge', 'recipient', 'from', 'to']
         initialize: ->
             Q = @_parseGetParams()
             if 'username' not of Q or 'api_key' not of Q
@@ -44,6 +44,14 @@ define [
                 @currentView.on 'loginAccepted', @logInAccepted
             
             return
+
+        getFilters: =>
+            queryParams = @_parseGetParams()
+            filterParams = {}
+            for param in @validFilterParams
+                filterParams[param] = queryParams[param] if param of queryParams
+
+            filterParams
 
         render: ->
             ###
@@ -78,5 +86,5 @@ define [
 
         renderRecognitionBoard: =>
             @currentView?.remove()
-            @currentView = new BoardView
+            @currentView = new BoardView filters: @getFilters()
             @render()

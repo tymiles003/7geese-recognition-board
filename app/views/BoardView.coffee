@@ -22,9 +22,11 @@ define [
             $window = $ window
 
             @recognitionsCollection = new RecognitionsCollection
-            @recognitionsCollection.fetch success: =>
-                @render()
-                @recognitionsCollection.bind "add", @_prependNewRecognition
+            @recognitionsCollection.fetch 
+                data: @options.filters
+                success: =>
+                    @render()
+                    @recognitionsCollection.bind "add", @_prependNewRecognition
 
             _lastWidth = $window.width()
 

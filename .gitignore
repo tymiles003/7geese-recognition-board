@@ -4,3 +4,4 @@ bin
 dist
 local_settings.json
 require.js
+*.orig
