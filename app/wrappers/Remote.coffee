@@ -7,7 +7,7 @@ define [
     return class Remote
         checkAuth: (username, apiToken) ->
             creds = {}
-            query = "#{settings.hostname}/api/v1/user/?callback=callback&limit=1"
+            query = "#{settings.hostname}/api/v1/networks/?callback=callback&limit=1"
             if username.length and apiToken.length
                 creds.username = username
                 creds.api_key = apiToken

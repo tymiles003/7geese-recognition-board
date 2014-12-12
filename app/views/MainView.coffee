@@ -7,6 +7,8 @@ define [
 
     'cs!app/views/BoardView'
     'cs!app/views/LoginView'
+    'cs!app/views/HeaderView'
+
 ], (template) ->
 
     _ = require 'underscore'
@@ -14,6 +16,7 @@ define [
 
     BoardView = require 'cs!app/views/BoardView'
     LoginView = require 'cs!app/views/LoginView'
+    HeaderView = require 'cs!app/views/HeaderView'
 
     Remote = require 'cs!app/wrappers/Remote'
 
@@ -22,6 +25,7 @@ define [
         validFilterParams: ['team', 'user', 'badge', 'recipient', 'from', 'to']
         initialize: ->
             Q = @_parseGetParams()
+            @secondaryView = null
             if 'username' not of Q or 'api_key' not of Q
                 username = ""
                 api_key = ""
@@ -32,6 +36,7 @@ define [
             promise = @remote.checkAuth username, api_key
 
             promise.done (data) =>
+                @network = data.objects[0]
                 Backbone.Tastypie.apiKey.username = username
                 Backbone.Tastypie.apiKey.key = api_key
                 @renderRecognitionBoard()
@@ -57,7 +62,10 @@ define [
             ###
             This will render the MainView.
             ###
-            @$el.html @currentView.el if @currentView?
+            @$el.html ''          
+            @$el.append @secondaryView.render().el if @secondaryView?
+            @$el.append @currentView.el if @currentView?
+            
 
         _parseGetParams: ->
             query = {}
@@ -89,4 +97,31 @@ define [
                 filters = @getFilters()
             @currentView?.remove()
             @currentView = new BoardView filters: filters
+            @secondaryView?.remove()
+            @secondaryView = new HeaderView currentDepartment: filters?.team, network: @network
+            @.listenTo(@secondaryView, 'filter:department', @updateDepartmentFilter)
             @render()
+
+        updateDepartmentFilter: (departmentId) =>
+            # update url
+            originalUrl = window.location.href
+            newUrl = originalUrl
+            if departmentId == 'all'
+                newUrl = originalUrl.replace(/\&?team\=\/api\/v1\/team\/\d+\//, '')
+            else
+                if originalUrl.indexOf('team=') != -1
+                    newUrl = originalUrl.replace(/(\&?)team\=\/api\/v1\/team\/\d+\//, "$1team=#{departmentId}")
+                else if originalUrl.indexOf('?')
+                    newUrl = originalUrl + "&team=#{departmentId}"
+                else
+                    newUrl = originalUrl + "?team=#{departmentId}"
+
+            if history?.pushState?
+                history?.pushState(null, null, newUrl)
+            else
+                window.location = newUrl
+
+            # update the board
+            @renderRecognitionBoard(if departmentId != 'all' then @getFilters() else team: '')
+
+
