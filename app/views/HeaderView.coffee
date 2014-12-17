@@ -64,7 +64,9 @@ define [
             @$('.js-department').select2(
                 multiple: false
                 placeholder: 'Select a department...'
-                formatSearching: null
+                escapeMarkup: (m) -> m
+                # formatSearching: null
+                width: 300
                 query: (query) =>
                     if query.term.length == 0
                         all = id: 'all', text: "All Departments"
