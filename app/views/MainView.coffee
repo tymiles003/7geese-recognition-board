@@ -33,7 +33,6 @@ define [
                 username = Q.username
                 api_key = Q.api_key
 
-            console.log "username = #{username} api_key = #{api_key}"
             promise = @remote.checkAuth username, api_key
 
             promise.done (data) =>
