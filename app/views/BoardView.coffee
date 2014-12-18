@@ -7,6 +7,8 @@ define [
     'app/lib/jquery/jquery.masonry.min.js'
     'cs!app/views/RecognitionView'
     'cs!app/collections/RecognitionsCollection'
+
+    'text!templates/loading.html'
 ], ->
     Backbone = require 'backbone'
     $ = require 'jquery'
@@ -14,17 +16,21 @@ define [
     RecognitionView = require 'cs!app/views/RecognitionView'
     RecognitionsCollection = require 'cs!app/collections/RecognitionsCollection'
 
+    template = _.template require 'text!templates/loading.html'
+
     return class BoardView extends Backbone.View
         className: 'board-view'
         _lastWidth: null
 
         initialize: (options) ->
             $window = $ window
-
+            @loaded = false
+            @render()
             @recognitionsCollection = new RecognitionsCollection
             @recognitionsCollection.fetch 
                 data: options.filters
                 success: =>
+                    @loaded = true
                     @render()
                     @recognitionsCollection.bind "add", @_prependNewRecognition
 
@@ -77,25 +83,29 @@ define [
                     offset: @recognitionsCollection.meta.offset
         
         render: =>
-            $ =>
-                @$el.css
-                    opacity: 0
-                    scale: 0.925
+            if not @loaded
+                @$el.html template {}
+            else
+                @$el.html('')
+                $ =>
+                    @$el.css
+                        opacity: 0
+                        scale: 0.925
 
-                @recognitionsCollection.forEach (model) =>
-                    @_addRecognition model
+                    @recognitionsCollection.forEach (model) =>
+                        @_addRecognition model
 
-                @$el.masonry
-                    itemSelector: '.recognition-view'
+                    @$el.masonry
+                        itemSelector: '.recognition-view'
 
-                @$el.transition
-                    opacity: 1
-                    scale: 1
-                , 500
-                , =>
-                    @$el.find('.recognition-view').addClass('animate');
+                    @$el.transition
+                        opacity: 1
+                        scale: 1
+                    , 500
+                    , =>
+                        @$el.find('.recognition-view').addClass('animate');
 
-            @centerBoard()
+                @centerBoard()
 
         _prependNewRecognition: (model) =>
             @_addRecognition model, true
