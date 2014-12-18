@@ -89,8 +89,10 @@ define [
             $.ajax(
                 url: url
                 headers: headers
+                crossDomain: true
+                dataType: "jsonp"
                 data:
-                    limit: 5
+                    limit: 250
                     activated: true
             ).done( (data) =>
                 @departments = _.map(data.objects, (model) ->
