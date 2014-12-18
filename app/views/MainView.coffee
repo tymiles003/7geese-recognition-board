@@ -95,6 +95,7 @@ define [
         renderRecognitionBoard: (filters=null)=>
             if not filters?
                 filters = @getFilters()
+            @currentView?.onClose()
             @currentView?.remove()
             @currentView = new BoardView filters: filters
             @secondaryView?.remove()

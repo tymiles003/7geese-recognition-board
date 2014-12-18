@@ -28,20 +28,20 @@ define [
                     @render()
                     @recognitionsCollection.bind "add", @_prependNewRecognition
 
+                    $(window).resize =>
+                        @_handleAppWidthChange()
+                        @centerBoard()
+                        @_lastWidth = $window.width()
+
+                    @timer = setInterval =>
+                        @updateBoard()
+                    , 30000
+
             _lastWidth = $window.width()
 
-            setInterval =>
-                @updateBoard()
-            , 30000
-
-            $(window).resize =>
-                @_handleAppWidthChange()
-                @centerBoard()
-                @_lastWidth = $window.width()
-
+            
         _handleAppWidthChange: ->
             $window = $ window
-
             if @_lastWidth > 1094 and $window.width() <= 1094 or
             @_lastWidth <= 1094 and $window.width() > 1094
                 @$el.masonry 'reload'
@@ -108,3 +108,7 @@ define [
             recognitionView.render()
             if prepend then @$el.prepend(recognitionView.el) else @$el.append(recognitionView.el)
             recognitionView.$el.addClass 'animate'
+
+        onClose: =>
+            $(window).off('resize')
+            clearInterval(@timer?)
