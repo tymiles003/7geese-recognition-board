@@ -20,7 +20,7 @@ define [
         defaultGetParams:
             dataType: 'jsonp'
             data:
-                limit: 50
+                limit: 20
 
         fetch: (options={}) =>
             mergedOptions = _.clone @defaultGetParams
